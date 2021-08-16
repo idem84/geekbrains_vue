@@ -14,17 +14,6 @@
 <script>
 export default {
   name: 'App',
-  props: {
-    query: {
-      type: Number,
-      default: 0
-    }
-  },
-  data() {
-    console.log(this.props)
-    return {
-    }
-  },
   methods: {
     goToPage(pageName){
       this.$router.push({

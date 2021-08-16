@@ -38,9 +38,8 @@ const router =  new Router({
         },
         {
             path: '/add/payment/:category',
-            component: PageDashboard,
-            name: 'Dashboard',
-            props: (route) => ({ query: route.query.q }),
+            component: () => import('../components/AddPaymentForm'),
+            name: 'AddPaymentFromUrl'
         },
         {
             path: '/auth',

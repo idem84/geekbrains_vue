@@ -14,7 +14,7 @@ export default new Vuex.Store({
             //state.paymentsList[0] = payload
             //state.paymentsList = [...state.paymentsList]
             //Vue.set(state.paymentsList,0, payload)
-            state.paymentsList = payload
+            state.paymentsList = [...payload, ...state.paymentsList]
         },
         addDataToPaymentList(state, payload) {
             state.paymentsList.push(payload)

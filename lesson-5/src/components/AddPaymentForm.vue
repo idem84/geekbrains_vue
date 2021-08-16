@@ -9,7 +9,7 @@
         </option>
       </select>
       <input type="number" v-model.number="value" placeholder="value" />
-      <button @click="onSave">Save</button>
+      <button @click="onSave" :disabled="!category">Save</button>
    </div>
   </div>
 </template>
@@ -53,13 +53,33 @@ export default {
               id: lastItemId + 1
           }
 
-          console.log('emit: addNewPayment',data)
-
           this.$emit('addNewPayment', data)
       }
   },
-  created(){
-    this.fetchCategoryList()
+  async created(){
+    await this.fetchCategoryList()
+
+    if (this.$route.name === 'AddPaymentFromUrl') {
+        const lastItemId = this.$store.getters.getPaymentsList.length;
+
+        this.id = lastItemId + 1,
+        this.date = this.getCurrentDate,
+        this.value = Number(this.$route.query?.value) || 0,
+        this.category = this.$route?.params?.category || '',
+        this.isVisible = true
+
+        // const data = {
+        //   date: this.getCurrentDate,
+        //   value: Number(this.$route.query?.value) || 0,
+        //   category: this.$route?.params?.category || '',
+        //   id: lastItemId + 1
+        // }
+
+        // this.$emit('addNewPayment', data)
+        //console.log(this.$store.getters.getPaymentsList);
+        //this.$store.commit('addDataToPaymentList', data)
+        this.$router.push('/dashboard');
+    }
   }
 };
 </script>

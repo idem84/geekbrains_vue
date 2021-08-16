@@ -18,6 +18,8 @@
     <div :class="[$style.content]">
       <add-payment-form @addNewPayment="addData" />
     </div>
+    <br><br>
+    <a href="/add/payment/Food?value=500">Add Item</a>
   </div>
 </template>
 
@@ -60,25 +62,6 @@ export default {
     addCategory(){
         this.$store.commit('addCategoryToList', this.category)
     },
-    fetchData() {
-      return [
-        {
-          date: "28.03.2020",
-          category: "Food",
-          value: 169
-        },
-        {
-          date: "24.03.2020",
-          category: "Transport",
-          value: 360
-        },
-        {
-          date: "24.03.2020",
-          category: "Food",
-          value: 532
-        }
-      ];
-    }
   },
   computed: {
     ...mapGetters({
