@@ -53,10 +53,13 @@ export default {
               id: lastItemId + 1
           }
 
-          this.$emit('addNewPayment', data)
+          if (data.value !== 0 && data.category !== '') {
+            this.$emit('addNewPayment', data)
 
-          if (this.$router.currentRoute.path.includes('/add/payment/')) {
-            this.$router.push('/dashboard');
+            if (this.$router.currentRoute.path.includes('/add/payment/')) {
+              this.$store.commit('addDataToPaymentList', data)
+              this.$router.push('/dashboard');
+            }
           }
       }
   },
@@ -66,8 +69,7 @@ export default {
     if (this.$route.name === 'AddPaymentFromUrl') {
         this.value = Number(this.$route.query?.value) || 0,
         this.category = this.$route?.params?.category || '',
-
-        this.onSave();
+        this.isVisible = true
     }
   }
 };
