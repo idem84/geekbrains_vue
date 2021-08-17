@@ -19,7 +19,7 @@
       <add-payment-form @addNewPayment="addData" />
     </div>
     <br><br>
-    <a href="/add/payment/Food?value=500">Add Item</a>
+    <button @click="addItem('/add/payment/Food?value=500')">Add Item</button>
   </div>
 </template>
 
@@ -51,7 +51,9 @@ export default {
     }),
     addData(newPayment) {
       this.addDataToStore(newPayment);
-      console.log(newPayment);
+    },
+    addItem(link){
+      this.$router.push(link);
     },
     onChangePage(p){
       this.curPage = p

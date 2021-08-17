@@ -60,13 +60,13 @@ export default {
     await this.fetchCategoryList()
 
     if (this.$route.name === 'AddPaymentFromUrl') {
-        const lastItemId = this.$store.getters.getPaymentsList.length;
+        //const lastItemId = this.$store.getters.getPaymentsList.length;
 
-        this.id = lastItemId + 1,
-        this.date = this.getCurrentDate,
+        //this.id = lastItemId + 1,
+        //this.date = this.getCurrentDate,
         this.value = Number(this.$route.query?.value) || 0,
         this.category = this.$route?.params?.category || '',
-        this.isVisible = true
+        //this.isVisible = true
 
         // const data = {
         //   date: this.getCurrentDate,
