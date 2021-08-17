@@ -54,31 +54,20 @@ export default {
           }
 
           this.$emit('addNewPayment', data)
+
+          if (this.$router.currentRoute.path.includes('/add/payment/')) {
+            this.$router.push('/dashboard');
+          }
       }
   },
   async created(){
     await this.fetchCategoryList()
 
     if (this.$route.name === 'AddPaymentFromUrl') {
-        //const lastItemId = this.$store.getters.getPaymentsList.length;
-
-        //this.id = lastItemId + 1,
-        //this.date = this.getCurrentDate,
         this.value = Number(this.$route.query?.value) || 0,
         this.category = this.$route?.params?.category || '',
-        //this.isVisible = true
 
-        // const data = {
-        //   date: this.getCurrentDate,
-        //   value: Number(this.$route.query?.value) || 0,
-        //   category: this.$route?.params?.category || '',
-        //   id: lastItemId + 1
-        // }
-
-        // this.$emit('addNewPayment', data)
-        //console.log(this.$store.getters.getPaymentsList);
-        //this.$store.commit('addDataToPaymentList', data)
-        this.$router.push('/dashboard');
+        this.onSave();
     }
   }
 };
