@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapActions } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import AddPaymentForm from "../components/AddPaymentForm.vue";
 import Pagination from '../components/Pagination.vue';
 import PaymentsDisplay from "../components/PaymentsDisplay.vue";
@@ -48,9 +48,6 @@ export default {
     ...mapMutations({
       loadData: "setPaymentListData",
       addDataToStore: "addDataToPaymentList"
-    }),
-    ...mapActions({
-      fetchListData: "fetchData"
     }),
     addData(newPayment) {
       this.addDataToStore(newPayment);
@@ -80,7 +77,7 @@ export default {
     //this.$store.commit('setPaymentListData', this.fetchData())
     //this.loadData(this.fetchData())
     // this.$store.dispatch('fetchData')
-    await this.fetchListData();
+    //await this.fetchListData();
     if (this.$route.params?.page) {
         this.onChangePage(this.$route.params.page)
     }

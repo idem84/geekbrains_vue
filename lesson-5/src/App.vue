@@ -12,15 +12,22 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: 'App',
   methods: {
+    ...mapActions({
+      fetchListData: "fetchData"
+    }),
     goToPage(pageName){
       this.$router.push({
         name: pageName
       })
     }
-  }
+  },
+  async created() {
+    await this.fetchListData();
+  },
 }
 </script>
 
