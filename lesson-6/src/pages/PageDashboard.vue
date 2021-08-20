@@ -12,15 +12,16 @@
                   @paginate="onChangePage"/>
     </div>
     
-        
-    <button @click="showAddCategoryForm">Add category</button>
-    <button @click="showPaymentFormFn">Add payment</button>
+    <br>
+    <button @click="showAddCategoryForm">Add category</button>&nbsp;
+    <button @click="showPaymentFormFn">Add payment</button>&nbsp;
+    <button @click="addItem('/add/payment/Food?value=500')">Add Item</button>
   
   </div>
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapActions } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import Pagination from '../components/Pagination.vue';
 import PaymentsDisplay from "../components/PaymentsDisplay.vue";
 
@@ -44,9 +45,12 @@ export default {
     ...mapMutations({
       addDataToStore: "addDataToPaymentList"
     }),
-    ...mapActions({
-      fetchListData: "fetchData"
-    }),
+    addData(newPayment) {
+      this.addDataToStore(newPayment);
+    },
+    addItem(link){
+      this.$router.push(link);
+    },
     onChangePage(p){
       this.curPage = p
     },
@@ -59,25 +63,6 @@ export default {
     showAddCategoryForm(){
       this.$modal.show('addCategory', {header: "Add new category Form"})
     },
-    fetchData() {
-      return [
-        {
-          date: "28.03.2020",
-          category: "Food",
-          value: 169
-        },
-        {
-          date: "24.03.2020",
-          category: "Transport",
-          value: 360
-        },
-        {
-          date: "24.03.2020",
-          category: "Food",
-          value: 532
-        }
-      ];
-    }
   },
   computed: {
     ...mapGetters({
@@ -96,7 +81,6 @@ export default {
     //this.$store.commit('setPaymentListData', this.fetchData())
     //this.loadData(this.fetchData())
     // this.$store.dispatch('fetchData')
-    await this.fetchListData();
     if (this.$route.params?.page) {
         this.onChangePage(this.$route.params.page)
     }
@@ -114,5 +98,10 @@ export default {
 }
 .content {
   padding-top: 30px;
+}
+.addcategory {
+  margin-top: 20px;
+  display: flex;
+  width: 100%;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input v-model="category" placeholder="category" />
+    <input v-model="category" placeholder="category" />&nbsp;
     <button @click="addCategory">addCategory</button>
   </div>
 </template>

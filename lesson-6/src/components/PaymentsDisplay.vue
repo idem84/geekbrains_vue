@@ -1,7 +1,18 @@
 <template>
   <div class="list">
+      <div class="title">
+          <div><b>#</b></div>
+          <div><b>Date</b></div>
+          <div><b>Category</b></div>
+          <div><b>Value</b></div>
+          <div><b>Options</b></div>
+      </div>
       <div class="item" v-for="(item, idx) in list" :key="idx">
-          {{item.id}} - {{ item }}
+          <div>{{ item.id }}</div>
+          <div>{{ item.date }}</div>
+          <div>{{ item.category }}</div>
+          <div>{{ item.value }}</div>
+          <div><button @click="showOptionsModal(item.id)"> + </button></div>
       </div>
   </div>
 </template>
@@ -9,11 +20,41 @@
 <script>
 export default {
     name: 'PaymentsDisplay',
+
     props: {
         list: {
             type: Array,
             default: ()=> [],
         }
+    },
+    methods: {
+        showOptionsModal(index){
+            this.$modal.show('OptionsForm', {header: "Options", index: index})
+        },
     }
 }
 </script>
+<style lang="scss" scoped>
+.list {
+    display: grid;
+    width: 480px;
+    grid-template-columns: 1fr;
+    &>.title{
+        display: grid;
+        grid-template-columns: 40px repeat(auto-fill, 110px);
+        border-bottom:1px solid grey;
+        &>div{
+            padding: 5px;
+        }
+    }
+    &>.item{
+        display: grid;
+        grid-template-columns: 40px repeat(auto-fill, 110px);
+        border-bottom:1px solid grey;
+        &>div{
+            padding: 5px;
+            position: relative;
+        }
+    }
+}
+</style>

@@ -19,15 +19,31 @@ export default new Vuex.Store({
         addDataToPaymentList(state, payload) {
             state.paymentsList.push(payload)
         },
+        deleteDataFromPaymentList(state, index) {
+            state.paymentsList.splice(index -1, 1)
+        },
         setCategoriesListData(state, payload) {
             state.categories = payload
         },
         addCategoryToList(state, payload) {
             state.categories.push(payload)
+        },
+        editDataInPaymentList(state, payload) {
+            state.paymentsList = state.paymentsList.map(item => {
+                if (item.id === payload.id) {
+                  return Object.assign({}, item, payload)
+                }
+
+                return item
+            })
         }
     },
     getters: {
         getPaymentsList: state => state.paymentsList,
+        getPaymentsItem: (state) => (index) => {
+            return state.paymentsList[index -1]
+          }
+        ,
         getFullPaymentValue: state => {
             return state.paymentsList.reduce((res, cur)=>res + cur.value, 0)
         },

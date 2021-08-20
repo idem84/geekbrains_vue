@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="header">{{ modalSettings.header }}</div>
     <div class="content">
-        <component :is="modalSettings.name" />
+        <component :is="modalSettings.name" :index="modalSettings.index" />
     </div>
     <div class="footer">
       <button @click="onClose">Close</button>
@@ -12,13 +12,17 @@
 
 <script>
 import AddCategory from './AddCategory.vue';
+import OptionsForm from './OptionsForm.vue';
 import Auth from './Auth.vue';
 export default {
   name: "ModalWindow",
   components: { 
    AddPaymentForm: ()=>import(/* webpackChunkName: 'AddPaymentForm' */'./AddPaymentForm.vue'),
    Auth, 
-   AddCategory },
+   AddCategory,
+   OptionsForm,
+   EditForm: ()=>import(/* webpackChunkName: 'EditFormForm' */'./EditForm.vue'),
+   },
   props: {
       modalSettings: Object
   },
@@ -36,5 +40,12 @@ export default {
     position: absolute;
     top:20%;
     background: #efefef;
+    box-shadow: 0px 1px 10px #000;
+    &>.content{
+      padding-top: 10px;
+    }
+    &>.footer{
+      padding-top: 10px;
+    }
 }
 </style>

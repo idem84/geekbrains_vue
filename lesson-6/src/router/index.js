@@ -17,11 +17,6 @@ const router =  new Router({
             name: 'Dashboard'
         },
         {
-            path: '/add/payment/:category/',
-            component: ()=>import(/* webpackChunkName:"AddPaymentFromUrl" */'../components/AddPaymentForm'),
-            name: 'AddPaymentFromUrl'
-        },
-        {
             path: '/dashboard/:page',
             component: ()=>import(/* webpackChunkName:"PageDashboard" */'../pages/PageDashboard'),
             name: 'Dashboard'
@@ -35,6 +30,11 @@ const router =  new Router({
             path: '/404',
             component: ()=>import(/* webpackChunkName:"Page404" */'../pages/Page404'),
             name: '404'
+        },
+        {
+            path: '/add/payment/:category/',
+            component: ()=>import(/* webpackChunkName:"AddPaymentFromUrl" */'../components/AddPaymentForm'),
+            name: 'AddPaymentFromUrl'
         },
         {
             path: "*",

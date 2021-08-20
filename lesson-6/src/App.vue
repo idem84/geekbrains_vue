@@ -15,11 +15,12 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
+  name: 'App',
   components: { 
     ModalWindowAddPaymentForm: ()=>import('./components/ModalWindowAddPaymentForm.vue')
   },
-  name: 'App',
   data() {
     return {
       modalShown: false,
@@ -27,6 +28,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      fetchListData: "fetchData",
+      fetchCategoriesData: "fetchCategoryList"
+    }),
     goToPage(pageName){
       this.$router.push({
         name: pageName
@@ -48,7 +53,11 @@ export default {
   beforeDestroy(){
     this.$modal.EventBus.$off('show', this.onShow)
     this.$modal.EventBus.$off('hide', this.onHide)
-  }
+  },
+  async created() {
+    await this.fetchListData();
+    await this.fetchCategoriesData();
+  },
 }
 </script>
 
