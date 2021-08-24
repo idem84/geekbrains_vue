@@ -56,8 +56,8 @@ export default {
   async created(){
     await this.fetchCategoryList()
     if(this.$route.name === 'AddPaymentFromUrl') {
-      this.value = Number(this.$route.query?.value)|| 0,
-      this.category = this.$route?.params?.category || ''
+      this.value = Number(this.$route.query.value)|| 0,
+      this.category = this.$route.params.category || ''
       //this.$router.push('/dashboard')
     }
   },
