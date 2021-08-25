@@ -4,23 +4,20 @@
     <input v-model.number="operand2" name="operand2"/>
     = {{ result }}
     <div>
-      <button v-for="op in operations" :key="op" @click="calculate(op)" :name="op" :disabled="op==='/' && operand2===0">
+      <button v-for="(op, index) in operations" :key="op" @click="calculate(op)" :name="op" :id="index">
         {{ op }}
       </button>
     </div>
-    <label
-      ><input type="checkbox" v-model="showvk" />Отобразить экранную
-      клавиатуру</label
-    >
-    <div v-if="showvk">
+    <label><input type="checkbox" id="showvk" v-model="showvk" />Отобразить экранную клавиатуру</label>
+    <div class="virtual-keyboard" v-if="showvk">
       Виртуальная клавиатура
-      <button v-for="btn in 10" :key="btn" @click="inputNum(btn - 1)">
+      <button v-for="(btn, index) in 10" :key="btn" :id="'key' + index" @click="inputNum(btn - 1)">
         {{ btn - 1 }}
       </button>
       <button @click="eraseOne">E</button>
       <br /><br />
-      <label><input type="radio" value="1" v-model="operch" />Операнд 1</label>
-      <label><input type="radio" value="2" v-model="operch" />Операнд 2</label>
+      <label><input type="radio" name="radio" value="1" v-model="operch" />Операнд 1</label>
+      <label><input type="radio" name="radio" value="2" v-model="operch" />Операнд 2</label>
     </div>
   </div>
 </template>
@@ -32,7 +29,12 @@ export default {
     operand1: 0,
     operand2: 0,
     result: 0,
-    operations: ["+", "-", "/", "*"],
+    operations: {
+      plus: "+", 
+      minus: "-", 
+      divide: "/", 
+      multiplication: "*"  
+    },
     showvk: false,
     operch: ""
   }),
