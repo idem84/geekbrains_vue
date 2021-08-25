@@ -14,10 +14,10 @@
       <button v-for="(btn, index) in 10" :key="btn" :id="'key' + index" @click="inputNum(btn - 1)">
         {{ btn - 1 }}
       </button>
-      <button @click="eraseOne">E</button>
+      <button id="delete" @click="eraseOne">E</button>
       <br /><br />
-      <label><input type="radio" name="radio" value="1" v-model="operch" />Операнд 1</label>
-      <label><input type="radio" name="radio" value="2" v-model="operch" />Операнд 2</label>
+      <label><input class="radio-operand1" type="radio" name="radio" value="1" v-model="operch" />Операнд 1</label>
+      <label><input class="radio-operand2" type="radio" name="radio" value="2" v-model="operch" />Операнд 2</label>
     </div>
   </div>
 </template>
