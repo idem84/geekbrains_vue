@@ -5,7 +5,7 @@
         <div class="text-h5 text-sm-h3">My Personal cost</div>
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on }">
-            <v-btn color="teal" dark v-on="on">
+            <v-btn color="teal mt-4 mb-4" dark v-on="on">
               ADD NEW COST <v-icon>mdi-plus</v-icon>
             </v-btn>
           </template>
@@ -14,17 +14,28 @@
           </v-card>
         </v-dialog>
 
-        <payments-display :list="currentElements" />
+        <v-dialog v-model="catModal" width="500">
+          <template v-slot:activator="{ on }">
+            <v-btn color="teal ml-4 mt-4 mb-4" dark v-on="on">
+              ADD CATEGORY <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <add-category @close="catModal=false"/>
+          </v-card>
+        </v-dialog>
 
-        <pagination
+        <payments-display :list="paymentsList" />
+
+        <!-- <pagination
           :cur="curPage"
           :n="n"
           :length="paymentsList.length"
           @paginate="onChangePage"
-        />
+        /> -->
 
-        <button @click="showAddCategoryForm">Add category</button>
-        <button @click="showPaymentFormFn">Add payment</button>
+        <!-- <button @click="showAddCategoryForm">Add category</button>
+        <button @click="showPaymentFormFn">Add payment</button> -->
       </v-col>
       <v-col cols="4">
         CHART
@@ -34,38 +45,41 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapActions } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
+import AddCategory from '../components/AddCategory.vue';
 import AddPaymentForm from '../components/AddPaymentForm.vue';
-import Pagination from "../components/Pagination.vue";
 import PaymentsDisplay from "../components/PaymentsDisplay.vue";
 
 export default {
   name: "Dashboard",
   components: {
     PaymentsDisplay,
-    Pagination,
-    AddPaymentForm
+    AddPaymentForm,
+    AddCategory
   },
   data() {
     return {
       dialog: false,
       category: "",
-      page: "",
+      page: 1,
       curPage: 1,
       n: 10,
       showPaymentForm: false,
-      modalSettings: ""
+      catModal: false,
     };
   },
   methods: {
     ...mapMutations({
       addDataToStore: "addDataToPaymentList"
     }),
-    ...mapActions({
-      fetchListData: "fetchData"
-    }),
-    onChangePage(p) {
-      this.curPage = p;
+    addData(newPayment) {
+      this.addDataToStore(newPayment);
+    },
+    addItem(link){
+      this.$router.push(link);
+    },
+    onChangePage(p){
+      this.curPage = p
     },
     addCategory() {
       this.$store.commit("addCategoryToList", this.category);
@@ -76,25 +90,6 @@ export default {
     showAddCategoryForm() {
       this.$modal.show("addCategory", { header: "Add new category Form" });
     },
-    fetchData() {
-      return [
-        {
-          date: "28.03.2020",
-          category: "Food",
-          value: 169
-        },
-        {
-          date: "24.03.2020",
-          category: "Transport",
-          value: 360
-        },
-        {
-          date: "24.03.2020",
-          category: "Food",
-          value: 532
-        }
-      ];
-    }
   },
   computed: {
     ...mapGetters({
@@ -109,13 +104,8 @@ export default {
     }
   },
   async created() {
-    // this.paymentsList = this.fetchData()
-    //this.$store.commit('setPaymentListData', this.fetchData())
-    //this.loadData(this.fetchData())
-    // this.$store.dispatch('fetchData')
-    await this.fetchListData();
     if (this.$route.params?.page) {
-      this.onChangePage(this.$route.params.page);
+        this.onChangePage(this.$route.params.page)
     }
   }
 };

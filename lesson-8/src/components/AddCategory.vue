@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <input v-model="category" placeholder="category" />
-    <button @click="addCategory">addCategory</button>
-  </div>
+  <v-card class="text-left pa-8">
+    <v-text-field v-model="category" label="category" />
+    <v-btn @click="addCategory">addCategory</v-btn>
+  </v-card>
 </template>
 
 <script>
@@ -16,6 +16,8 @@ export default {
   methods: {
     addCategory() {
       this.$store.commit("addCategoryToList", this.category);
+
+      this.$emit("close");
     }
   }
 };

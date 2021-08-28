@@ -10,6 +10,7 @@
     >{{ i }}</div>
     <div @click="onClick(cur + 1)">+</div>
   </div>
+  
 </template>
 
 <script>

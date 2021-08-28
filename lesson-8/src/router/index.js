@@ -17,14 +17,14 @@ const router =  new Router({
             name: 'Dashboard'
         },
         {
-            path: '/add/payment/:category/',
-            component: ()=>import(/* webpackChunkName:"AddPaymentFromUrl" */'../components/AddPaymentForm'),
-            name: 'AddPaymentFromUrl'
-        },
-        {
             path: '/dashboard/:page',
             component: ()=>import(/* webpackChunkName:"PageDashboard" */'../pages/PageDashboard'),
             name: 'Dashboard'
+        },
+        {
+            path: '/add/payment/:category/',
+            component: ()=>import(/* webpackChunkName:"AddPaymentFromUrl" */'../components/AddPaymentForm'),
+            name: 'AddPaymentFromUrl'
         },
         {
             path: '/about*',
