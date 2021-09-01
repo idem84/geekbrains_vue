@@ -10,7 +10,7 @@
             </v-btn>
           </template>
           <v-card>
-            <add-payment-form @close="dialog=false"/>
+            <add-payment-form :categories="categories" @close="dialog=false"/>
           </v-card>
         </v-dialog>
 
@@ -25,7 +25,7 @@
           </v-card>
         </v-dialog>
 
-        <payments-display :list="paymentsList" />
+        <payments-display :categories="categories" :list="paymentsList" />
 
         <!-- <pagination
           :cur="curPage"
@@ -37,8 +37,8 @@
         <!-- <button @click="showAddCategoryForm">Add category</button>
         <button @click="showPaymentFormFn">Add payment</button> -->
       </v-col>
-      <v-col cols="4">
-        CHART
+      <v-col cols="4" class="chart-block">
+        <add-chart v-if="showChart" :categories="categories" :list="paymentsList" />
       </v-col>
     </v-row>
   </v-container>
@@ -49,13 +49,15 @@ import { mapMutations, mapGetters } from "vuex";
 import AddCategory from '../components/AddCategory.vue';
 import AddPaymentForm from '../components/AddPaymentForm.vue';
 import PaymentsDisplay from "../components/PaymentsDisplay.vue";
+import AddChart from "../components/AddChart.vue";
 
 export default {
   name: "Dashboard",
   components: {
     PaymentsDisplay,
     AddPaymentForm,
-    AddCategory
+    AddCategory,
+    AddChart
   },
   data() {
     return {
@@ -66,6 +68,7 @@ export default {
       n: 10,
       showPaymentForm: false,
       catModal: false,
+      showChart: false,
     };
   },
   methods: {
@@ -93,7 +96,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      paymentsList: "getPaymentsList"
+      paymentsList: "getPaymentsList",
+      categories: "getCategories",
+      count: "itemsCount",
     }),
     getFPV() {
       return this.$store.getters.getFullPaymentValue;
@@ -103,14 +108,22 @@ export default {
       return this.paymentsList.slice(n * (curPage - 1), n * (curPage - 1) + n);
     }
   },
-  async created() {
+  created() {
     if (this.$route.params?.page) {
         this.onChangePage(this.$route.params.page)
+    }
+    
+    if (this.count > 0)
+      this.showChart = true;
+  },
+  watch: {
+    count () {
+      this.showChart = true;
     }
   }
 };
 </script>
-<style module lang="scss">
+<style lang="scss" scoped>
 .wrapper {
   display: block;
   height: 100%;
@@ -121,5 +134,8 @@ export default {
 }
 .content {
   padding-top: 30px;
+}
+.chart-block {
+  margin-top: 110px;
 }
 </style>

@@ -38,6 +38,7 @@
           :valueProp="item.value"
           :categoryProp="item.category"
           :dateProp="item.date"
+          :categories="categories"
           @close="edit = false"
         />
       </v-card>
@@ -54,6 +55,10 @@ export default {
   },
   props: {
     id: Number,
+    categories: {
+      type: Array,
+      default: () => [],
+    }
   },
   data: () => ({
     items: [

@@ -3,7 +3,7 @@
     <v-text-field disabled v-model="id" v-if="id > 0" label="id" />
     <v-text-field v-model="date" label="date" />
     <v-text-field v-model.number="value" label="value" />
-    <v-select v-model="category" label="category" :items="options" />
+    <v-select v-model="category" label="category" :items="categories" />
     <v-btn @click="onSave" name="btnClick">Save</v-btn>
   </v-card>
 </template>
@@ -28,6 +28,10 @@ export default {
       type: String,
       default: ""
     },
+    categories: {
+      type: Array,
+      default: () => [],
+    }
   },
   data: function () {
     return {
@@ -44,9 +48,6 @@ export default {
       const m = today.getMonth() + 1;
       const y = today.getFullYear();
       return `${d}.${m}.${y}`;
-    },
-    options() {
-      return this.$store.getters.getCategories;
     },
   },
   methods: {

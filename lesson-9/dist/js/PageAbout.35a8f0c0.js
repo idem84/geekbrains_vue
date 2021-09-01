@@ -1,2 +1,2 @@
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["PageAbout"],{ad01:function(t,o,n){"use strict";n.r(o);var u=function(){var t=this,o=t.$createElement,n=t._self._c||o;return n("div",[t._v("About "),n("br"),n("button",{on:{click:t.showAuthFormFn}},[t._v("auth")])])},e=[],a={name:"About",methods:{showAuthFormFn:function(){this.$modal.show("auth",{header:"Auth Form"})}}},h=a,r=n("2877"),s=Object(r["a"])(h,u,e,!1,null,null,null);o["default"]=s.exports}}]);
-//# sourceMappingURL=PageAbout.3748906a.js.map
+//# sourceMappingURL=PageAbout.35a8f0c0.js.map

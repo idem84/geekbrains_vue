@@ -17,7 +17,7 @@
           <td>{{ row.item.date }}</td>
           <td>{{ row.item.category }}</td>
           <td>{{ row.item.value }}</td>
-          <td><options :id="row.item.id" @close="Options = false" /></td>
+          <td><options :categories="categories" :id="row.item.id" @close="Options = false" /></td>
         </tr> </template>
         
         </v-data-table>
@@ -61,6 +61,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    categories: {
+      type: Array,
+      default: () => [],
+    }
   },
   created() {
     this.pageCount = this.list.length / this.itemsPerPage;

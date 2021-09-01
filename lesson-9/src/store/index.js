@@ -51,6 +51,9 @@ export default new Vuex.Store({
       return state.paymentsList.reduce((res, cur) => res + cur.value, 0);
     },
     getCategories: (state) => state.categories,
+    itemsCount: (state) => {
+      return (state.categories.length > 0 && state.paymentsList.length > 0) ? 1 : 0;
+    }
   },
   actions: {
     fetchData({ commit }) {
